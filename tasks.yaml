@@ -1,34 +1,34 @@
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: cleanup
-spec:
-  description: This task will clean up a workspace by deleting all of the files.
-  workspaces:
-    - name: source
-  steps:
-    - name: remove
-      image: alpine:3
-      env:
-        - name: WORKSPACE_SOURCE_PATH
-          value: $(workspaces.source.path)
-      workingDir: $(workspaces.source.path)
-      securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-      script: |
-        #!/usr/bin/env sh
-        set -eu
-        echo "Removing all files from ${WORKSPACE_SOURCE_PATH} ..."
-        # Delete any existing contents of the directory if it exists.
-        #
-        # We don't just "rm -rf ${WORKSPACE_SOURCE_PATH}" because ${WORKSPACE_SOURCE_PATH} might be "/"
-        # or the root of a mounted volume.
-        if [ -d "${WORKSPACE_SOURCE_PATH}" ] ; then
-          # Delete non-hidden files and directories
-          rm -rf "${WORKSPACE_SOURCE_PATH:?}"/*
-          # Delete files and directories starting with . but excluding ..
-          rm -rf "${WORKSPACE_SOURCE_PATH}"/.[!.]*
-          # Delete files and directories starting with .. plus any other character
-          rm -rf "${WORKSPACE_SOURCE_PATH}"/..?*
-        fi
+Using default tag: latest
+The push refers to repository [us.icr.io/sn-labs-micaeloliver/zntwk-tax-calculator]
+d9cb3bdce1ba: Preparing
+c6e4ef81eaba: Preparing
+90e193e8e90f: Preparing
+3eabe1ec9011: Preparing
+e00deca0c7a7: Preparing
+1f6769d33b2c: Preparing
+268dcb7d3ded: Preparing
+3ed70aff1d48: Preparing
+b4ae38225777: Preparing
+dd5ee23ab910: Preparing
+1f5a1d1be68f: Preparing
+15f1c8eb1ab1: Preparing
+3ed70aff1d48: Waiting
+b4ae38225777: Waiting
+dd5ee23ab910: Waiting
+1f5a1d1be68f: Waiting
+15f1c8eb1ab1: Waiting
+268dcb7d3ded: Waiting
+1f6769d33b2c: Waiting
+3eabe1ec9011: Pushed
+c6e4ef81eaba: Pushed
+d9cb3bdce1ba: Pushed
+90e193e8e90f: Pushed
+e00deca0c7a7: Pushed
+268dcb7d3ded: Pushed
+1f6769d33b2c: Pushed
+3ed70aff1d48: Pushed
+b4ae38225777: Pushed
+dd5ee23ab910: Pushed
+1f5a1d1be68f: Pushed
+15f1c8eb1ab1: Pushed
+latest: digest: sha256:91014ca7c97372b0d3161229c9d93424c7f9d4e047cd6ede7a82084894fd987e size: 2816
